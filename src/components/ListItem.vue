@@ -9,6 +9,7 @@
 export default {
   name: 'ListItem',
   props: {
+    itemId: String,
     content: String,
     checked: Boolean
   }
@@ -16,4 +17,11 @@ export default {
 </script>
 
 <style scoped lang="less">
+.complete {
+  color: #999;
+  text-decoration: line-through;
+}
+input[type=checkbox] {
+  margin-right: 1em;
+}
 </style>

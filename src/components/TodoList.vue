@@ -1,8 +1,12 @@
 <template>
 <div class="todo-list">
-  <h1>{{ msg }}</h1>
+  <h1>{{ name }}</h1>
+  <form>
+    <label for="newItem">Add new task</label><br />
+    <input type="text" name="newItem" />
+  </form>
   <ul>
-    <ListItem v-for="i in 10" :key="i" :content="i"/>
+    <ListItem v-for="i in items" :key="i.id" :content="i.content" :checked="i.isComplete"/>
   </ul>
 </div>
 </template>
@@ -14,7 +18,8 @@ import ListItem from '@/components/ListItem.vue'
 export default {
   name: 'TodoList',
   props: {
-    msg: String
+    name: String,
+    items: Array
   },
   components: {
     ListItem
@@ -23,4 +28,15 @@ export default {
 </script>
 
 <style scoped lang="less">
+div.todo-list {
+  margin: 0 auto;
+  max-width: 900px;
+  text-align: left;
+}
+ul {
+  list-style-type: none;
+  line-height: 2em;
+  margin-left: 0;
+  padding-left: 0;
+}
 </style>

@@ -6,7 +6,7 @@
     <input type="text" name="newItem" />
   </form>
   <ul>
-    <ListItem v-for="i in items" :key="i.id" :content="i.content" :checked="i.isComplete"/>
+    <ListItem v-for="i in items" :key="i.itemId" :itemId="i.itemId" :content="i.content" :isComplete="i.isComplete"/>
   </ul>
 </div>
 </template>

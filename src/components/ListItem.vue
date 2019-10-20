@@ -25,8 +25,7 @@ export default {
         itemId: this.itemId,
         checked: this.checked
       }
-      this.$emit('updated', ev)
-      console.log(this.content + ', ' + this.checked.toString() + ', ' + this.itemId)
+      this.$emit('update', ev)
     }
   }
 }

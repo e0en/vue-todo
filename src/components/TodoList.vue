@@ -1,9 +1,9 @@
 <template>
 <div class="todo-list">
   <h1>{{ name }}</h1>
-  <form>
-    <label for="newItem">Add new task</label><br />
-    <input type="text" name="newItem" />
+  <form v-on:submit.prevent="addNewItem">
+    <label for="newContent">Add new task</label><br />
+    <input type="text" name="newContent" v-model="newContent" />
   </form>
   <ul>
     <ListItem v-for="i in items" :key="i.itemId"
@@ -25,6 +25,7 @@ export default {
   },
   data: function () {
     return {
+      newContent: '',
       items: [
         { itemId: '0', content: 'Buy milk', isComplete: false },
         { itemId: '1', content: 'Buy eggs', isComplete: true }
@@ -42,6 +43,13 @@ export default {
           item.isComplete = ev.checked
         }
       })
+    },
+    addNewItem: function (ev) {
+      console.log(this.newContent)
+      var newId = this.items.length.toString()
+      this.items.push({ itemId: newId, content: this.newContent, isComplete: false })
+      this.newContent = ''
+      return false
     }
   }
 }

@@ -8,7 +8,7 @@
   <ul>
     <ListItem v-for="i in items" :key="i.itemId"
       :itemId="i.itemId" :content="i.content" :isComplete="i.isComplete"
-      v-on:update="update"
+      v-on:update="update" v-on:deleteItem="deleteItem"
     />
   </ul>
 </div>
@@ -17,6 +17,7 @@
 <script>
 // @ is an alias to /src
 import ListItem from '@/components/ListItem.vue'
+import axios from 'axios'
 
 export default {
   name: 'TodoList',
@@ -26,31 +27,71 @@ export default {
   data: function () {
     return {
       newContent: '',
-      items: [
-        { itemId: '0', content: 'Buy milk', isComplete: false },
-        { itemId: '1', content: 'Buy eggs', isComplete: true }
-      ]
+      items: []
     }
   },
   components: {
     ListItem
   },
   methods: {
+    getAll: function () {
+      var comp = this
+      axios.get('http://localhost:5000/todo')
+        .then((res) => {
+          res.data.forEach(d => comp.items.push(d))
+          console.log(res.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
     update: function (ev) {
       console.log(ev)
       this.items.forEach(function (item) {
         if (item.itemId === ev.itemId) {
           item.isComplete = ev.checked
+          item.content = ev.content
+          axios.put('http://localhost:5000/todo/' + item.itemId, item)
+            .then(() => {
+              console.log('update complete')
+            })
+            .catch((error) => {
+              console.log(error)
+            })
         }
       })
     },
     addNewItem: function (ev) {
       console.log(this.newContent)
       var newId = this.items.length.toString()
-      this.items.push({ itemId: newId, content: this.newContent, isComplete: false })
+      var newItem = { itemId: newId, content: this.newContent, isComplete: false }
+      this.items.push(newItem)
+      axios.post('http://localhost:5000/todo', newItem)
+        .then(() => {
+          console.log('post complete')
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+
       this.newContent = ''
       return false
+    },
+    deleteItem: function (itemId) {
+      axios.delete('http://localhost:5000/todo/' + itemId)
+        .then(() => {
+          this.items = this.items.filter(function (item) {
+            return item.itemId !== itemId
+          })
+          console.log('deleted ' + itemId)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
+  },
+  created: function () {
+    this.getAll()
   }
 }
 </script>

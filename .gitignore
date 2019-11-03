@@ -23,3 +23,7 @@ yarn-error.log*
 # python files
 __pycache__/
 *.py[cod]
+
+# settings
+secret.py
+*.db

@@ -44,4 +44,7 @@ export default {
 input[type=checkbox] {
   margin-right: 1em;
 }
+button.delete {
+  margin-left: 1em;
+}
 </style>

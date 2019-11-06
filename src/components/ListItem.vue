@@ -39,6 +39,8 @@ export default {
     showEdit: function () {
       this.isEditing = true
       this.$nextTick(() => {
+        var len = this.text.length
+        this.$refs.text.style.width = len.toString() + 'em'
         console.log(this.$refs.text.focus())
       })
     },

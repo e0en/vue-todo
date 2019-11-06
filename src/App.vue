@@ -7,5 +7,6 @@
 <style lang="less">
 #app {
   text-align: center;
+  font-family: sans-serif;
 }
 </style>

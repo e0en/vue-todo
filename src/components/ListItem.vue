@@ -3,7 +3,7 @@
     <input type="checkbox" v-model="checked" v-on:change="update" />
     <input type="hidden" :value="itemId" />
     <span class="content" v-on:click="showEdit" v-bind:class="[isEditing ?  'hidden' : '']">{{ content }}</span>
-    <input ref="text" type="text" v-model="text" v-bind:class="[isEditing ? '' : 'hidden']"
+    <input class="content" ref="text" type="text" v-model="text" v-bind:class="[isEditing ? '' : 'hidden']"
       v-on:blur="editItem" v-on:keyup.enter="editItem" />
     <button class="delete" v-on:click="deleteItem" v-bind:class="[isEditing ?  '' : 'hidden']">delete</button>
   </li>
@@ -60,6 +60,9 @@ export default {
 </script>
 
 <style scoped lang="less">
+.content {
+  font-size: 14px;
+}
 .complete {
   color: #999;
   text-decoration: line-through;

@@ -17,6 +17,7 @@
 <script>
 // @ is an alias to /src
 import ListItem from '@/components/ListItem.vue'
+import backendUrl from '@/settings.js'
 import axios from 'axios'
 
 export default {
@@ -36,7 +37,7 @@ export default {
   methods: {
     getAll: function () {
       var comp = this
-      axios.get('http://localhost:5000/todo')
+      axios.get(backendUrl + '/todo')
         .then((res) => {
           res.data.forEach(d => comp.items.push(d))
           console.log(res.data)
@@ -51,7 +52,7 @@ export default {
         if (item.itemId === ev.itemId) {
           item.isComplete = ev.checked
           item.content = ev.content
-          axios.put('http://localhost:5000/todo/' + item.itemId, item)
+          axios.put(backendUrl + '/todo/' + item.itemId, item)
             .then(() => {
               console.log('update complete')
             })
@@ -66,7 +67,7 @@ export default {
       var newId = this.items.length.toString()
       var newItem = { itemId: newId, content: this.newContent, isComplete: false }
       this.items.push(newItem)
-      axios.post('http://localhost:5000/todo', newItem)
+      axios.post(backendUrl + '/todo', newItem)
         .then(() => {
           console.log('post complete')
         })
@@ -78,7 +79,7 @@ export default {
       return false
     },
     deleteItem: function (itemId) {
-      axios.delete('http://localhost:5000/todo/' + itemId)
+      axios.delete(backendUrl + '/todo/' + itemId)
         .then(() => {
           this.items = this.items.filter(function (item) {
             return item.itemId !== itemId

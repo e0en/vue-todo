@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<style lang="less">
+<style lang="scss">
 #app {
   text-align: center;
   font-family: sans-serif;

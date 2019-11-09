@@ -7,7 +7,7 @@
   </form>
   <button v-on:click="toggleHideCompleted">{{ hideCompleted ? "Show" : "Hide" }} completed</button>
   <ul>
-    <ListItem v-for="i in items" :key="i.itemId"
+    <TodoItem v-for="i in items" :key="i.itemId"
       :itemId="i.itemId" :content="i.content" :isComplete="i.isComplete"
       v-on:update="update" v-on:deleteItem="deleteItem"
       v-bind:class="[(hideCompleted & i.isComplete) ? 'hidden' : '' ]"
@@ -18,7 +18,7 @@
 
 <script>
 // @ is an alias to /src
-import ListItem from '@/components/ListItem.vue'
+import TodoItem from '@/components/TodoItem.vue'
 import backendUrl from '@/settings.js'
 import axios from 'axios'
 
@@ -35,7 +35,7 @@ export default {
     }
   },
   components: {
-    ListItem
+    TodoItem
   },
   methods: {
     getAll: function () {

@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'ListItem',
+  name: 'TodoItem',
   props: {
     itemId: String,
     content: String,

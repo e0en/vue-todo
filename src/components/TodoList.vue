@@ -5,10 +5,12 @@
     <label for="newContent">Add new task</label><br />
     <input type="text" name="newContent" v-model="newContent" />
   </form>
+  <button v-on:click="toggleHideCompleted">{{ hideCompleted ? "Show" : "Hide" }} completed</button>
   <ul>
     <ListItem v-for="i in items" :key="i.itemId"
       :itemId="i.itemId" :content="i.content" :isComplete="i.isComplete"
       v-on:update="update" v-on:deleteItem="deleteItem"
+      v-bind:class="[(hideCompleted & i.isComplete) ? 'hidden' : '' ]"
     />
   </ul>
 </div>
@@ -28,7 +30,8 @@ export default {
   data: function () {
     return {
       newContent: '',
-      items: []
+      items: [],
+      hideCompleted: false
     }
   },
   components: {
@@ -89,6 +92,9 @@ export default {
         .catch((error) => {
           console.log(error)
         })
+    },
+    toggleHideCompleted: function () {
+      this.hideCompleted = !this.hideCompleted
     }
   },
   created: function () {
@@ -108,5 +114,8 @@ ul {
   line-height: 2em;
   margin-left: 0;
   padding-left: 0;
+}
+.hidden {
+  display: none;
 }
 </style>

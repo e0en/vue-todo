@@ -3,7 +3,7 @@
   <h1>{{ name }}</h1>
   <form class="field" v-on:submit.prevent="addNewItem">
     <p class="control">
-      <label for="newContent">Add new task</label><br />
+      <label for="newContent">Add a new task</label><br />
       <input class="input" type="text" name="newContent" v-model="newContent" />
     </p>
   </form>

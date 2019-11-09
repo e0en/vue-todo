@@ -1,16 +1,20 @@
 <template>
-<div class="todo-list">
+<div class="todo-list content">
   <h1>{{ name }}</h1>
-  <form v-on:submit.prevent="addNewItem">
-    <label for="newContent">Add new task</label><br />
-    <input type="text" name="newContent" v-model="newContent" />
+  <form class="field" v-on:submit.prevent="addNewItem">
+    <p class="control">
+      <label for="newContent">Add new task</label><br />
+      <input class="input" type="text" name="newContent" v-model="newContent" />
+    </p>
   </form>
-  <button v-on:click="toggleHideCompleted">{{ hideCompleted ? "Show" : "Hide" }} completed</button>
+  <div class="field">
+    <button class="button is-small" v-on:click="toggleHideCompleted">{{ hideCompleted ? "Show" : "Hide" }} completed</button>
+  </div>
   <ul>
     <TodoItem v-for="i in items" :key="i.itemId"
       :itemId="i.itemId" :content="i.content" :isComplete="i.isComplete"
       v-on:update="update" v-on:deleteItem="deleteItem"
-      v-bind:class="[(hideCompleted & i.isComplete) ? 'hidden' : '' ]"
+      v-show="(!i.isComplete) | (!hideCompleted)"
     />
   </ul>
 </div>
@@ -95,6 +99,11 @@ export default {
     },
     toggleHideCompleted: function () {
       this.hideCompleted = !this.hideCompleted
+      this.items.forEach(item => {
+        if (item.isComplete) {
+          console.log(item)
+        }
+      })
     }
   },
   created: function () {
@@ -109,9 +118,8 @@ div.todo-list {
   max-width: 900px;
   text-align: left;
 }
-ul {
+.content ul {
   list-style-type: none;
-  line-height: 2em;
   margin-left: 0;
   padding-left: 0;
 }

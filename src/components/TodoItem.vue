@@ -1,11 +1,20 @@
 <template>
-  <li class="todo-list-item" :class="{ complete: checked }">
-    <input type="checkbox" v-model="checked" v-on:change="update" />
+  <li class="field is-grouped todo-list-item" :class="{ complete: checked }">
     <input type="hidden" :value="itemId" />
-    <span class="content" v-on:click="showEdit" v-bind:class="[isEditing ?  'hidden' : '']">{{ content }}</span>
-    <input class="content" ref="text" type="text" v-model="text" v-bind:class="[isEditing ? '' : 'hidden']"
-      v-on:blur="editItem" v-on:keyup.enter="editItem" />
-    <button class="delete" v-on:click="deleteItem" v-bind:class="[isEditing ?  '' : 'hidden']">delete</button>
+    <p class="control checkbox">
+      <input type="checkbox" v-model="checked" v-on:change="update" />
+    </p>
+    <p class="control is-expanded">
+      <input class="input content"
+        ref="text"
+        v-on:click="showEdit"
+        v-on:keyup="submit"
+        v-on:blur="editItem"
+        v-bind:class="[isEditing ?  '' : 'is-static']" :value="text" />
+    </p>
+    <p class="control">
+      <button class="delete" v-on:click="deleteItem" v-bind:class="[isEditing ?  '' : 'hidden']">delete</button>
+    </p>
   </li>
 </template>
 
@@ -39,16 +48,22 @@ export default {
     showEdit: function () {
       this.isEditing = true
       this.$nextTick(() => {
-        var len = this.text.length
-        this.$refs.text.style.width = len.toString() + 'em'
-        console.log(this.$refs.text.focus())
+        this.$refs.text.focus()
       })
+    },
+    submit: function (e) {
+      if (e.keyCode === 13) {
+        this.editItem()
+        this.$refs.text.blur()
+      }
     },
     editItem: function () {
       if (this.isEditing) {
+        let newText = this.$refs.text.value
+        this.text = newText
         var ev = {
           itemId: this.itemId,
-          content: this.text,
+          content: newText,
           checked: this.checked
         }
         this.$emit('update', ev)
@@ -60,20 +75,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.content {
-  font-size: 14px;
-}
-.complete {
+.complete .is-static {
   color: #999;
   text-decoration: line-through;
 }
-input[type=checkbox] {
-  margin-right: 1em;
-}
-button.delete {
-  margin-left: 1em;
-}
 .hidden {
   display: none;
+}
+input[type=checkbox]{
+  vertical-align: middle;
+  height: 100%;
 }
 </style>

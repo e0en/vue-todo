@@ -1,6 +1,6 @@
 <template>
   <div class="todo_list">
-    <TodoList name="Todo" />
+    <TodoList />
   </div>
 </template>
 

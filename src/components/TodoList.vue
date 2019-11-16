@@ -1,6 +1,5 @@
 <template>
-<div class="todo-list content">
-  <h1>{{ name }}</h1>
+<div class="container todo-list">
   <form class="field" v-on:submit.prevent="addNewItem">
     <p class="control">
       <label for="newContent">Add a new task</label><br />
@@ -28,9 +27,6 @@ import axios from 'axios'
 
 export default {
   name: 'TodoList',
-  props: {
-    name: String
-  },
   data: function () {
     return {
       newContent: '',
@@ -114,8 +110,7 @@ export default {
 
 <style lang="scss" scoped>
 div.todo-list {
-  margin: 0 auto;
-  max-width: 900px;
+  margin: 1em auto;
   text-align: left;
 }
 .content ul {

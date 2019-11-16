@@ -40,7 +40,7 @@ export default {
   methods: {
     getAll: function () {
       var comp = this
-      axios.get(backendUrl + '/todo')
+      axios.get(backendUrl)
         .then((res) => {
           res.data.forEach(d => comp.items.push(d))
           console.log(res.data)
@@ -55,7 +55,7 @@ export default {
         if (item.itemId === ev.itemId) {
           item.isComplete = ev.checked
           item.content = ev.content
-          axios.put(backendUrl + '/todo/' + item.itemId, item)
+          axios.put(backendUrl + '/' + item.itemId, item)
             .then(() => {
               console.log('update complete')
             })
@@ -70,7 +70,7 @@ export default {
       var newId = this.items.length.toString()
       var newItem = { itemId: newId, content: this.newContent, isComplete: false }
       this.items.push(newItem)
-      axios.post(backendUrl + '/todo', newItem)
+      axios.post(backendUrl, newItem)
         .then(() => {
           console.log('post complete')
         })
@@ -82,7 +82,7 @@ export default {
       return false
     },
     deleteItem: function (itemId) {
-      axios.delete(backendUrl + '/todo/' + itemId)
+      axios.delete(backendUrl + '/' + itemId)
         .then(() => {
           this.items = this.items.filter(function (item) {
             return item.itemId !== itemId

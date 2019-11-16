@@ -43,39 +43,25 @@ export default {
       axios.get(backendUrl)
         .then((res) => {
           res.data.forEach(d => comp.items.push(d))
-          console.log(res.data)
-        })
-        .catch((error) => {
-          console.log(error)
         })
     },
     update: function (ev) {
-      console.log(ev)
       this.items.forEach(function (item) {
         if (item.itemId === ev.itemId) {
           item.isComplete = ev.checked
           item.content = ev.content
           axios.put(backendUrl + '/' + item.itemId, item)
             .then(() => {
-              console.log('update complete')
-            })
-            .catch((error) => {
-              console.log(error)
             })
         }
       })
     },
     addNewItem: function (ev) {
-      console.log(this.newContent)
       var newId = this.items.length.toString()
       var newItem = { itemId: newId, content: this.newContent, isComplete: false }
       this.items.push(newItem)
       axios.post(backendUrl, newItem)
         .then(() => {
-          console.log('post complete')
-        })
-        .catch((error) => {
-          console.log(error)
         })
 
       this.newContent = ''
@@ -87,17 +73,12 @@ export default {
           this.items = this.items.filter(function (item) {
             return item.itemId !== itemId
           })
-          console.log('deleted ' + itemId)
-        })
-        .catch((error) => {
-          console.log(error)
         })
     },
     toggleHideCompleted: function () {
       this.hideCompleted = !this.hideCompleted
       this.items.forEach(item => {
         if (item.isComplete) {
-          console.log(item)
         }
       })
     }

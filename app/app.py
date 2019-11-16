@@ -40,7 +40,6 @@ def todo_item(item_id: str):
         update(request.get_json())
     elif request.method == 'DELETE':
         delete(item_id)
-        pass
     else:
         raise ValueError('Unexpected request method')
     item_id = str(uuid.uuid1())

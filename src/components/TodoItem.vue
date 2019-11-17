@@ -13,7 +13,7 @@
         v-bind:class="[isEditing ?  '' : 'is-static']" :value="text" />
     </p>
     <p class="control">
-      <button class="delete" v-on:mousedown="deleteItem" v-bind:class="[isEditing ?  '' : 'hidden']">delete</button>
+      <button class="button" v-on:mousedown="deleteItem" v-bind:class="[isEditing ?  '' : 'hidden']">delete</button>
     </p>
   </li>
 </template>

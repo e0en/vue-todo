@@ -1,0 +1,2 @@
+let backendUrl = 'https://my-domain.com/todo-api/todo'
+export default backendUrl

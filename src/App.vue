@@ -9,7 +9,6 @@
 
 <style lang="scss">
 #app {
-  text-align: center;
   font-family: sans-serif;
 }
 </style>

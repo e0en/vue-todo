@@ -14,10 +14,10 @@ from secret import DB_FILENAME, SECRET_KEY
 
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
-CORS(app, resources={r'/*': {'origins': '*'}})
 
 login_manager = LoginManager()
 login_manager.init_app(app)
+CORS(app, supports_credentials=True)
 
 
 @login_manager.user_loader

@@ -25,6 +25,8 @@ import TodoItem from '@/components/TodoItem.vue'
 import backendUrl from '@/settings.js'
 import axios from 'axios'
 
+axios.defaults.withCredentials = true
+
 export default {
   name: 'TodoList',
   data: function () {
@@ -40,9 +42,13 @@ export default {
   methods: {
     getAll: function () {
       var comp = this
-      axios.get(backendUrl)
+      axios.get(backendUrl + '/todo')
         .then((res) => {
           res.data.forEach(d => comp.items.push(d))
+        })
+        .catch((err) => {
+          console.log(err.toJSON())
+          comp.$router.push('Login')
         })
     },
     update: function (ev) {
@@ -50,7 +56,7 @@ export default {
         if (item.itemId === ev.itemId) {
           item.isComplete = ev.checked
           item.content = ev.content
-          axios.put(backendUrl + '/' + item.itemId, item)
+          axios.put(backendUrl + '/todo/' + item.itemId, item)
             .then(() => {
             })
         }
@@ -60,7 +66,7 @@ export default {
       var newId = this.items.length.toString()
       var newItem = { itemId: newId, content: this.newContent, isComplete: false }
       this.items.push(newItem)
-      axios.post(backendUrl, newItem)
+      axios.post(backendUrl + '/todo', newItem)
         .then(() => {
         })
 
@@ -68,7 +74,7 @@ export default {
       return false
     },
     deleteItem: function (itemId) {
-      axios.delete(backendUrl + '/' + itemId)
+      axios.delete(backendUrl + '/todo/' + itemId)
         .then(() => {
           this.items = this.items.filter(function (item) {
             return item.itemId !== itemId

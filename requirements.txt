@@ -1,4 +1,6 @@
+bcrypt
 flask
 Flask-Cors
+flask-login
 gunicorn
 ujson

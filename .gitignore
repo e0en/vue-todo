@@ -27,3 +27,5 @@ __pycache__/
 # settings
 secret.py
 *.db
+src/settings.js
+vue.config.js

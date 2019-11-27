@@ -1,6 +1,6 @@
 <template>
-  <div class="content">
-    <form class="box" action="#" v-on:submit="submitLogin">
+  <div class="container">
+    <form action="#" v-on:submit="submitLogin">
       <div class="field">
         <label class="label">Email</label>
         <div class="control">
@@ -52,9 +52,8 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 form {
   margin: 0 auto;
-  max-width: 800px;
 }
 </style>

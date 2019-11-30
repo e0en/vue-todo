@@ -16,6 +16,9 @@
       v-show="(!i.isComplete) | (!hideCompleted)"
     />
   </ul>
+  <div class="container">
+    <button class="button is-danger is-light" v-on:click="logout">Logout</button>
+  </div>
 </div>
 </template>
 
@@ -41,14 +44,14 @@ export default {
   },
   methods: {
     getAll: function () {
-      var comp = this
+      let comp = this
       axios.get(backendUrl + '/todo')
         .then((res) => {
           res.data.forEach(d => comp.items.push(d))
         })
         .catch((err) => {
-          console.log(err.toJSON())
-          comp.$router.push('Login')
+          console.log(err)
+          comp.$router.push('login')
         })
     },
     update: function (ev) {
@@ -83,10 +86,13 @@ export default {
     },
     toggleHideCompleted: function () {
       this.hideCompleted = !this.hideCompleted
-      this.items.forEach(item => {
-        if (item.isComplete) {
-        }
-      })
+    },
+    logout: function () {
+      let comp = this
+      axios.get(backendUrl + '/logout')
+        .then(() => {
+          comp.$router.push('login')
+        })
     }
   },
   created: function () {

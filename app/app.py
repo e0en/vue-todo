@@ -5,7 +5,13 @@ import sqlite3
 
 from flask import Flask, request
 from flask_cors import CORS
-from flask_login import LoginManager, login_required, current_user, login_user
+from flask_login import (
+    LoginManager,
+    login_required,
+    current_user,
+    login_user,
+    logout_user,
+)
 import ujson as json
 from bcrypt import checkpw
 
@@ -63,6 +69,13 @@ def verify_login(user_dict) -> bool:
 def index():
     return 'Hello, world!'
 
+
+@app.route('/logout', methods=['GET'])
+@login_required
+def logout():
+    if current_user.is_authenticated:
+        logout_user()
+        return 'OK'
 
 
 @app.route('/todo', methods=['POST', 'GET'])

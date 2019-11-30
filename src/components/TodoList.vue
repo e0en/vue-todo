@@ -25,8 +25,6 @@
 
 <script>
 // @ is an alias to /src
-import TodoItem from '@/components/TodoItem.vue'
-import Login from '@/components/Login.vue'
 import backendUrl from '@/settings.js'
 import axios from 'axios'
 
@@ -43,8 +41,8 @@ export default {
     }
   },
   components: {
-    TodoItem,
-    Login
+    TodoItem: () => import('@/components/TodoItem.vue'),
+    Login: () => import('@/components/Login.vue')
   },
   methods: {
     getAll: function () {

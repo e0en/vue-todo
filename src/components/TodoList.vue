@@ -16,15 +16,17 @@
       v-show="(!i.isComplete) | (!hideCompleted)"
     />
   </ul>
-  <div class="container">
+  <div class="container" v-show="isLoggedIn">
     <button class="button is-danger is-light" v-on:click="logout">Logout</button>
   </div>
+  <Login ref="login" :isActive="!isLoggedIn" v-on:login="handleLogin" />
 </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import TodoItem from '@/components/TodoItem.vue'
+import Login from '@/components/Login.vue'
 import backendUrl from '@/settings.js'
 import axios from 'axios'
 
@@ -36,21 +38,25 @@ export default {
     return {
       newContent: '',
       items: [],
-      hideCompleted: false
+      hideCompleted: false,
+      isLoggedIn: true
     }
   },
   components: {
-    TodoItem
+    TodoItem,
+    Login
   },
   methods: {
     getAll: function () {
       const comp = this
       axios.get(backendUrl + '/todo')
         .then((res) => {
+          comp.isLoggedIn = true
+          comp.items = []
           res.data.forEach(d => comp.items.push(d))
         })
         .catch(() => {
-          comp.$router.push('login')
+          comp.isLoggedIn = false
         })
     },
     update: function (ev) {
@@ -86,11 +92,22 @@ export default {
     toggleHideCompleted: function () {
       this.hideCompleted = !this.hideCompleted
     },
+    handleLogin: function (isSuccess) {
+      if (isSuccess) {
+        this.isLoggedIn = true
+        this.$refs.login.isActive = false
+        this.getAll()
+      } else {
+        this.isLoggedIn = false
+        this.$refs.login.isActive = true
+      }
+    },
     logout: function () {
-      const comp = this
       axios.get(backendUrl + '/logout')
         .then(() => {
-          comp.$router.push('login')
+          this.items = []
+          this.isLoggedIn = false
+          this.$refs.login.isActive = true
         })
     }
   },

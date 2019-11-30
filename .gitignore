@@ -29,3 +29,4 @@ secret.py
 *.db
 src/settings.js
 vue.config.js
+package-lock.json

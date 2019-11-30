@@ -35,16 +35,15 @@ export default {
   name: 'login',
   methods: {
     submitLogin: function () {
-      let comp = this
-      let email = this.$refs.email.value
-      let pw = this.$refs.password.value
+      const comp = this
+      const email = this.$refs.email.value
+      const pw = this.$refs.password.value
       axios.post(backendUrl + '/login', { email: email, pw: pw })
         .then((res) => {
           comp.$router.push('/')
           return false
         })
-        .catch((err) => {
-          console.log(err)
+        .catch(() => {
           return false
         })
     }

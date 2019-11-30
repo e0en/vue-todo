@@ -59,7 +59,7 @@ export default {
     },
     editItem: function () {
       if (this.isEditing) {
-        let newText = this.$refs.text.value
+        const newText = this.$refs.text.value
         this.text = newText
         var ev = {
           itemId: this.itemId,

@@ -44,13 +44,12 @@ export default {
   },
   methods: {
     getAll: function () {
-      let comp = this
+      const comp = this
       axios.get(backendUrl + '/todo')
         .then((res) => {
           res.data.forEach(d => comp.items.push(d))
         })
-        .catch((err) => {
-          console.log(err)
+        .catch(() => {
           comp.$router.push('login')
         })
     },
@@ -88,7 +87,7 @@ export default {
       this.hideCompleted = !this.hideCompleted
     },
     logout: function () {
-      let comp = this
+      const comp = this
       axios.get(backendUrl + '/logout')
         .then(() => {
           comp.$router.push('login')

@@ -1,0 +1,4 @@
+module.exports = {
+  backendUrl: 'https://2501.sh/todo-api',
+  frontendPath: '/todo/'
+}
